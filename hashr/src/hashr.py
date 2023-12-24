@@ -24,7 +24,7 @@ def hashr(string: str) -> str:
         total += ord(char)
         total *= primes[point]
         point -= 1 if point > 0 else -7
-        
+
     total_string = ""
     flip = 0
     for num in str(total):
@@ -34,4 +34,6 @@ def hashr(string: str) -> str:
 
 
 if __name__ == "__main__":
+    # this doesn't change similar character values
+    # enough, needs more complexity, possibly modulo?
     print(hashr(sys.argv[1]))
