@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
-    entry_points={"console_scripts": ["hashr=hashr.hashr:main"]},
+    entry_points={"console_scripts": ["hashr=hashr.hashr:_main"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

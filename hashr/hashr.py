@@ -38,7 +38,7 @@ def hashr(string: str, salt=False) -> str | list[str]:
     return total_string
 
 
-def main():
+def _main():
     parser = argparse.ArgumentParser(description="testing")
     parser.add_argument('input', help='string')
     parser.add_argument('-s', '--use-salt', action='store_true', help='salt')
@@ -47,4 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    _main()
