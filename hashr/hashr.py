@@ -15,11 +15,17 @@ letters = {
 }
 
 
-def hashr(string: str) -> str:
+
+def hashr(string: str, salted: bool | None = None) -> str | list[str]:
+    """
+    remember to document
+    """
+    def roll(string: str) -> str:
+        return string
+    
     total = 0
     primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
     point = 7
-
     for char in string:
         total += ord(char)
         total *= primes[point]
@@ -34,6 +40,4 @@ def hashr(string: str) -> str:
 
 
 if __name__ == "__main__":
-    # this doesn't change similar character values
-    # enough, needs more complexity, possibly modulo?
     print(hashr(sys.argv[1]))
