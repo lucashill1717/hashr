@@ -18,6 +18,6 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     py_modules=["hashr"],
-    package_dir={'':'hashr/src'},
+    package_dir={'':'.'},
     install_requires=[]
 )
