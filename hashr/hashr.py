@@ -1,6 +1,3 @@
-import argparse
-
-
 letters = {
     "1": ["a", "k"],
     "2": ["b", "l"],
@@ -15,22 +12,23 @@ letters = {
 }
 
 
-def hashr(string: str, salt=False) -> str | list[str]:
+def saltr() -> str:
+    """
+    salt
+    """
+    return ""
+
+
+def hashr(input: str, salt=False) -> str | list[str]:
     """
     remember to document
     """
 
     primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
-    total = 0
     point = 7
+    total = 0
 
-    def roll(string: str) -> str:
-        return string
-
-    length = len(string)
-    window = length // 3 if length > 2 else length
-
-    for char in string:
+    for char in input:
         total += ord(char)
         total *= primes[point]
         point -= 1 if point > 0 else -7
@@ -45,7 +43,9 @@ def hashr(string: str, salt=False) -> str | list[str]:
 
 
 def _main():
-    parser = argparse.ArgumentParser(description="testing")
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser(description="testing")  # fill out more fields here
     parser.add_argument("input", help="string")
     parser.add_argument("-s", "--use-salt", action="store_true", help="salt")
     args = parser.parse_args()
