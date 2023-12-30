@@ -1,17 +1,16 @@
-from importlib.metadata import entry_points
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="hashr",
     version="0.1.0",
     author="Lucas Hill",
     description="Custom hash function for Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     entry_points={"console_scripts": ["hashr=hashr.hashr:_main"]},
     classifiers=[
         "Programming Language :: Python :: 3",

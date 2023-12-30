@@ -19,16 +19,22 @@ def hashr(string: str, salt=False) -> str | list[str]:
     """
     remember to document
     """
+
+    primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
+    total = 0
+    point = 7
+
     def roll(string: str) -> str:
         return string
 
-    total = 0
-    primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
-    point = 7
+    length = len(string)
+    window = length // 3 if length > 2 else length
+
     for char in string:
         total += ord(char)
         total *= primes[point]
         point -= 1 if point > 0 else -7
+    total %= 10888869450418352160768000001
 
     total_string = ""
     flip = 0
@@ -40,8 +46,8 @@ def hashr(string: str, salt=False) -> str | list[str]:
 
 def _main():
     parser = argparse.ArgumentParser(description="testing")
-    parser.add_argument('input', help='string')
-    parser.add_argument('-s', '--use-salt', action='store_true', help='salt')
+    parser.add_argument("input", help="string")
+    parser.add_argument("-s", "--use-salt", action="store_true", help="salt")
     args = parser.parse_args()
     print(hashr(args.input, args.use_salt))
 
