@@ -1,3 +1,5 @@
 hashr/env
 hashr/__pycache__
 hashr.egg-info
+build
+dist
