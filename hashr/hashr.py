@@ -20,7 +20,7 @@ def number_to_letters(number: int) -> str:
     return "".join(chars)
 
 
-def saltr(letters=False) -> int | str:
+def saltr(letters=True) -> int | str:
     """
     salt
     """
@@ -31,7 +31,7 @@ def saltr(letters=False) -> int | str:
     return number_to_letters(number) if letters else number
 
 
-def hashr(input: str, use_salt=False) -> str | list[str]:
+def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
     """
     remember to document
     """
@@ -49,19 +49,19 @@ def hashr(input: str, use_salt=False) -> str | list[str]:
             point -= 1 if point > 0 else -7
         return current_sum
 
-    salt = str(saltr(True)) if use_salt else ""
+    salt = str(saltr()) if use_salt else ""
     input += salt
-    
+
     total = 0
     total += hash(input, total)
     total += hash(str(total), total)
     total %= 10888869450418352160768000001
-    
+
     hashed_string = number_to_letters(total)
     if use_salt:
-        return f"Hash: {hashed_string}\nSalt: {salt}"
+        return (hashed_string, salt)
     else:
-        return f"Hash: {hashed_string}"
+        return hashed_string
 
 
 def _main() -> None:
@@ -71,7 +71,12 @@ def _main() -> None:
     parser.add_argument("input", help="string")
     parser.add_argument("-s", "--use-salt", action="store_true", help="salt")
     args = parser.parse_args()
-    print(hashr(args.input, args.use_salt))
+
+    hash = hashr(args.input, args.use_salt)
+    if type(hash) is str:
+        print(f"Hash: {hash}")
+    else:
+        print(f"Hash: {hash[0]}\nSalt: {hash[1]}")
 
 
 if __name__ == "__main__":
