@@ -1,4 +1,16 @@
 def number_to_letters(number: int) -> str:
+    """
+    Converts an integer to a string, with characters
+    ranging from 'a' to 't'. Used to have a human
+    readable hash.
+
+    Parameters:
+        - number : integer
+
+    Returns:
+        - str : number string converted to letters
+    """
+    
     letters = {
         "1": ["a", "k"],
         "2": ["b", "l"],
@@ -20,9 +32,26 @@ def number_to_letters(number: int) -> str:
     return "".join(chars)
 
 
-def saltr(letters=True) -> int | str:
+def saltr(letters=True) -> str | int:
     """
-    salt
+    Generates a 7 character salt by default,
+    only returning an integer in the millions
+    if specified.
+    
+    Parameters:
+        - letters : bool deciding if the salt
+        will be characters or not: True == letters,
+        False == integer
+
+    Returns:
+        - str or int : salt
+
+    A salt is used to increase complexity of a hash.
+    Appending 7 random characters to the end of a
+    string causes two copies of the same string to have
+    entirely different hashes. Just make sure to store
+    salts along with their hashes, as otherwise strings
+    can no longer be matched to them.
     """
 
     from random import randint
