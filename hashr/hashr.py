@@ -23,15 +23,23 @@ def hashr(input: str, salt=False) -> str | list[str]:
     """
     remember to document
     """
-
-    primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
-    point = 7
+    
+    if len(input) == 0: return ""
+    
+    def hash(string: str, current_sum: int) -> int:
+        primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
+        point = 7
+        
+        for char in string:
+            current_sum += ord(char)
+            current_sum *= primes[point]
+            point -= 1 if point > 0 else -7
+        return current_sum
+    
     total = 0
-
-    for char in input:
-        total += ord(char)
-        total *= primes[point]
-        point -= 1 if point > 0 else -7
+    total += hash(input, total)
+    total += hash(str(total), total)
+    
     total %= 10888869450418352160768000001
 
     total_string = ""
