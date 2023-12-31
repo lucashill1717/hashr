@@ -11,7 +11,7 @@ def number_to_letters(number: int) -> str:
         "9": ["i", "s"],
         "0": ["j", "t"],
     }
-    
+
     chars = []
     flip = 0
     for num in str(number):
@@ -20,14 +20,15 @@ def number_to_letters(number: int) -> str:
     return "".join(chars)
 
 
-def saltr(letters=False) -> int:
+def saltr(letters=False) -> int | str:
     """
     salt
     """
 
     from random import randint
 
-    return randint(1000000, 9999999)
+    number = randint(1000000, 9999999)
+    return number_to_letters(number) if letters else number
 
 
 def hashr(input: str, use_salt=False) -> str | list[str]:
@@ -48,15 +49,22 @@ def hashr(input: str, use_salt=False) -> str | list[str]:
             point -= 1 if point > 0 else -7
         return current_sum
 
+    salt = str(saltr(True)) if use_salt else ""
+    input += salt
+    
     total = 0
     total += hash(input, total)
     total += hash(str(total), total)
     total %= 10888869450418352160768000001
+    
+    hashed_string = number_to_letters(total)
+    if use_salt:
+        return f"Hash: {hashed_string}\nSalt: {salt}"
+    else:
+        return f"Hash: {hashed_string}"
 
-    return number_to_letters(total)
 
-
-def _main():
+def _main() -> None:
     from argparse import ArgumentParser
 
     parser = ArgumentParser(description="testing")  # fill out more fields here
