@@ -5,12 +5,12 @@ def number_to_letters(number: int) -> str:
     readable hash.
 
     Parameters:
-        - number : integer
+        - number : integer to be converted
 
     Returns:
-        - str : number string converted to letters
+        - string : number string converted to letters
     """
-    
+
     letters = {
         "1": ["a", "k"],
         "2": ["b", "l"],
@@ -37,14 +37,14 @@ def saltr(letters=True) -> str | int:
     Generates a 7 character salt by default,
     only returning an integer in the millions
     if specified.
-    
+
     Parameters:
         - letters : bool deciding if the salt
         will be characters or not: True == letters,
         False == integer
 
     Returns:
-        - str or int : salt
+        - string or integer : salt
 
     A salt is used to increase complexity of a hash.
     Appending 7 random characters to the end of a
@@ -62,7 +62,26 @@ def saltr(letters=True) -> str | int:
 
 def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
     """
-    remember to document
+    Custom hashing algorithm to turn a string into a hash string,
+    with the option of using salting for increased security.
+
+    Parameters:
+        - input : string to be hashed
+        - use_salt : bool whether to use a salt or not,
+        False by default
+
+    Returns:
+        - string or tuple of two strings : without salt, just returns
+        the hash, with salt, returns hash and salt as a tuple
+
+    This algorithm uses character folding to produce a different hash
+    for every unique string, even if the differences are extremely
+    minimal, such as with "Hello World1" and "Hello World2". It adds
+    the values of every character in the string up, multiplying each
+    by a different prime number for discrete complexity. For enhanced
+    security, two passes are done to avoid information clumping. Lastly,
+    for maximum safety, salting is optional to produce different hashes
+    for two copies of strings, as long as salts are saved along with hashes.
     """
 
     if len(input) == 0:
@@ -79,24 +98,22 @@ def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
         return current_sum
 
     salt = str(saltr()) if use_salt else ""
-    input += salt
+    input += salt # appends salt to input string if present
 
     total = 0
-    total += hash(input, total)
-    total += hash(str(total), total)
+    total += hash(input, total) # first pass
+    total += hash(str(total), total) # second pass
+    # modulo total by huge prime number to reduce hash size
     total %= 10888869450418352160768000001
 
     hashed_string = number_to_letters(total)
-    if use_salt:
-        return (hashed_string, salt)
-    else:
-        return hashed_string
+    return (hashed_string, salt) if use_salt else hashed_string
 
 
 def _main() -> None:
     from argparse import ArgumentParser
 
-    parser = ArgumentParser(description="testing")  # fill out more fields here
+    parser = ArgumentParser(description="testing")
     parser.add_argument("input", help="string")
     parser.add_argument("-s", "--use-salt", action="store_true", help="salt")
     args = parser.parse_args()
