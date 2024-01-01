@@ -114,6 +114,7 @@ def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
 
 def _main() -> None:
     from argparse import ArgumentParser
+    import sys
 
     parser = ArgumentParser(
         description="Custom hashing algorithm using two-pass character folding\
@@ -136,6 +137,10 @@ def _main() -> None:
             have separate hashes. save the salt for later identification.",
     )
     args = parser.parse_args()
+
+    if not args.input:
+        print("Error: Input string is required.")
+        sys.exit(1)
 
     hash = hashr(args.input, args.use_salt)
     if type(hash) is str:
