@@ -1,5 +1,6 @@
-hashr/env
-hashr/__pycache__
+env
+__pycache__
 hashr.egg-info
 build
 dist
+.pytest_cache
