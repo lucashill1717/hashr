@@ -84,29 +84,31 @@ def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
     for two copies of strings, as long as salts are saved along with hashes.
     """
 
+    # returns nothing if no input, as the algorithm needs one character to work
     if len(input) == 0:
         return ""
 
+    # the hashing algorithm
     def hash(string: str, current_sum: int) -> int:
         primes = [5, 11, 31, 127, 709, 5381, 52711, 648391]
         point = 7
 
         for char in string:
-            current_sum += ord(char)
-            current_sum *= primes[point]
+            current_sum += ord(char)  # gets numerical value of character
+            current_sum *= primes[point]  # shuffles values by primes
             point -= 1 if point > 0 else -7
         return current_sum
 
     salt = str(saltr()) if use_salt else ""
-    input += salt # appends salt to input string if present
+    input += salt  # appends salt to input string if present
 
     total = 0
-    total += hash(input, total) # first pass
-    total += hash(str(total), total) # second pass
+    total += hash(input, total)  # first pass
+    total += hash(str(total), total)  # second pass
     # modulo total by huge prime number to reduce hash size
     total %= 10888869450418352160768000001
 
-    hashed_string = number_to_letters(total)
+    hashed_string = number_to_letters(total)  # converts big number to letters
     return (hashed_string, salt) if use_salt else hashed_string
 
 
