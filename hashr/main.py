@@ -1,5 +1,6 @@
 from hashr import hashr
 
+
 def _main() -> None:
     from argparse import ArgumentParser
     import sys

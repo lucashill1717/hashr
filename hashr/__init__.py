@@ -48,6 +48,7 @@ def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
     hashed_string = number_to_letters(total)  # converts big number to letters
     return (hashed_string, salt) if use_salt else hashed_string
 
+
 def saltr(letters=True) -> str | int:
     """
     Generates a 7 character salt by default,
@@ -74,6 +75,7 @@ def saltr(letters=True) -> str | int:
 
     number = randint(1000000, 9999999)
     return number_to_letters(number) if letters else number
+
 
 def number_to_letters(number: int) -> str:
     """
