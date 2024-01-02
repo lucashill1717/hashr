@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="hashr",
-    version="0.1.0",
+    version="1.0.0",
     author="Lucas Hill",
     description="Custom hash function for Python",
     long_description=long_description,

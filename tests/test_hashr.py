@@ -8,8 +8,8 @@ class TestHashr(unittest.TestCase):
     def test_hashr(self):
         # test known hash result of "Hello World!"
         hash = hashr("Hello World!")
-        empty_hash = hashr("")
         self.assertEqual(hash, "brclfmetdrenfrctfpesdnckfojt")
+        empty_hash = hashr("")
         self.assertEqual(empty_hash, "")
 
     def test_saltr(self):
