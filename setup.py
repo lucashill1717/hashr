@@ -11,7 +11,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    entry_points={"console_scripts": ["hashr=hashr.hashr:_main"]},
+    entry_points={"console_scripts": ["hashr=hashr.main:_main"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

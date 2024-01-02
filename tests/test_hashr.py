@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
-from hashr.hashr import hashr, saltr, number_to_letters, _main
+from hashr import hashr, saltr, number_to_letters
+from hashr.main import _main
 import subprocess
 
 
@@ -11,6 +12,8 @@ class TestHashr(unittest.TestCase):
         self.assertEqual(hash, "brclfmetdrenfrctfpesdnckfojt")
         empty_hash = hashr("")
         self.assertEqual(empty_hash, "")
+        another_hash = hashr("Hello World1")
+        self.assertNotEqual(hash, another_hash)
 
     def test_saltr(self):
         number_salt = int(saltr(False))
@@ -27,7 +30,7 @@ class TestHashr(unittest.TestCase):
 
     @patch("builtins.print")
     @patch("sys.argv", ["test_hashr.py", "test_input", "-s"])
-    @patch("hashr.hashr.saltr", return_value="iqirioc")
+    @patch("hashr.saltr", return_value="iqirioc")
     def test_main_with_salt(self, mock_saltr, mock_print):
         _main()
         expected_output = "Hash: esakanhqcpimgmencocpgnhtfnal\nSalt: iqirioc"
@@ -49,7 +52,7 @@ class TestHashr(unittest.TestCase):
         mock_print.assert_called_once_with("Error: Input string is required.")
 
     def test_main_execution(self):
-        result = subprocess.run(["python3", "hashr/hashr.py", "Hello World!"],
+        result = subprocess.run(["python3", "hashr/main.py", "Hello World!"],
                                 capture_output=True, text=True)
         self.assertEqual(result.returncode, 0)
         self.assertEqual(result.stdout, "Hash: brclfmetdrenfrctfpesdnckfojt\n")
