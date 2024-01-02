@@ -84,8 +84,7 @@ def hashr(input: str, use_salt=False) -> str | tuple[str, str]:
     for two copies of strings, as long as salts are saved along with hashes.
     """
 
-    # returns nothing if no input, as the algorithm needs one character to work
-    if len(input) == 0:
+    if not input:
         return ""
 
     # the hashing algorithm

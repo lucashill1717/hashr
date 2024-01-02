@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from hashr.hashr import hashr, saltr, number_to_letters, _main
+import subprocess
 
 
 class TestHashr(unittest.TestCase):
@@ -26,8 +27,8 @@ class TestHashr(unittest.TestCase):
 
     @patch("builtins.print")
     @patch("sys.argv", ["test_hashr.py", "test_input", "-s"])
-    @patch("hashr.hashr._main", MagicMock(side_effect=lambda x: "iqirioc"))
-    def test_main_with_salt(self, mock_print):
+    @patch("hashr.hashr.saltr", return_value="iqirioc")
+    def test_main_with_salt(self, mock_saltr, mock_print):
         _main()
         expected_output = "Hash: esakanhqcpimgmencocpgnhtfnal\nSalt: iqirioc"
         mock_print.assert_called_once_with(expected_output)
@@ -46,6 +47,12 @@ class TestHashr(unittest.TestCase):
             _main()
         self.assertEqual(context.exception.code, 1)
         mock_print.assert_called_once_with("Error: Input string is required.")
+
+    def test_main_execution(self):
+        result = subprocess.run(["python3", "hashr/hashr.py", "Hello World!"],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, "Hash: brclfmetdrenfrctfpesdnckfojt\n")
 
 
 if __name__ == "__main__":

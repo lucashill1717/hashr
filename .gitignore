@@ -4,3 +4,4 @@ hashr.egg-info
 build
 dist
 .pytest_cache
+.coverage
