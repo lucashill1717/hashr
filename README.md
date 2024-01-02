@@ -27,6 +27,6 @@ There is also the option to add a salt, which causes duplicate string to have un
 
 To import hashr as a package, add ```from hashr import [function]``` to the top of your Python file.
 The available functions are as follows:
- - hashr
- - saltr
- - number_to_letters
+ - hashr: main hashing algorithm, turns any string into a string hash
+ - saltr: generates a seven digit salt, either numerical or alphabetical
+ - number_to_letters: converts a number to letters based on each digit
