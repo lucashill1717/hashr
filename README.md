@@ -30,3 +30,6 @@ The available functions are as follows:
  - hashr: main hashing algorithm, turns any string into a string hash
  - saltr: generates a seven digit salt, either numerical or alphabetical
  - number_to_letters: converts a number to letters based on each digit
+
+## Tests
+To run tests, run ```pytest tests/test_hashr.py```
