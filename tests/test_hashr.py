@@ -7,7 +7,6 @@ import subprocess
 
 class TestHashr(unittest.TestCase):
     def test_hashr(self):
-        # test known hash result of "Hello World!"
         hash = hashr("Hello World!")
         self.assertEqual(hash, "brclfmetdrenfrctfpesdnckfojt")
         empty_hash = hashr("")
@@ -17,9 +16,9 @@ class TestHashr(unittest.TestCase):
 
     def test_saltr(self):
         number_salt = int(saltr(False))
-        letter_salt = saltr()
         self.assertLess(999999, number_salt)
         self.assertGreater(10000000, number_salt)
+        letter_salt = saltr()
         self.assertIs(type(letter_salt), str)
 
     def test_number_to_letters(self):
